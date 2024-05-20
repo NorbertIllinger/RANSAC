@@ -5,11 +5,12 @@ import skimage
 import os
 import datetime
 import sys
+import numpy as np
 
-from RANSAC.Common import Util
-from RANSAC.Common import CircleModel
-from RANSAC.Common import Point
-from RANSAC.Algorithm import RansacCircleHelper
+from Common import Util
+from Common import CircleModel
+from Common import Point
+from Algorithm import RansacCircleHelper
 import traceback
 from MatplotUtil import plot_new_points_over_existing_points
 
@@ -47,6 +48,7 @@ def run(filename,threshold,inlier,sampling_fraction=0.25,matplot=False):
         np_image_result=skimage.io.imread(file_noisy_circle,as_gray=True)
         new_points=CircleModel.generate_points_from_circle(best_model)
         np_superimposed=Util.superimpose_points_on_image(np_image_result,new_points,100,255,100)
+        np_superimposed=np.clip(np_superimposed, 0, 255).astype(np.uint8)
         #Save new image
         skimage.io.imsave(file_result,np_superimposed)
         print("Results saved to file:%s" % (file_result))
@@ -97,10 +99,13 @@ filename0="NoisyCircle-HandDrawn-001.png"
 #run("NoisyCircle_x_34_y_-6_r_43_d_0.40_sp_0.85_w_50_h_50.9.png",1,12)
 
 #run("NoisyCircle-HandDrawn-002.png",20,5,matplot=True)
-run("NoisyCircle_x_212_y_-33_r_145_d_0.40_sp_0.85_w_200_h_200.16.png",5,50,sampling_fraction=0.01)
+#run("NoisyCircle_x_212_y_-33_r_145_d_0.40_sp_0.85_w_200_h_200.16.png",5,50,sampling_fraction=0.01)
 #run("NoisyCircle_x_277_y_19_r_194_d_0.40_sp_0.95_w_200_h_200.18.png",5,100,matplot=True,sampling_fraction=0.2)
 #run("NoisyCircle_x_282_y_235_r_257_d_0.40_sp_0.70_w_200_h_200.2.png",5,50,sampling_fraction=0.01) #out of memory
-#run("NoisyCircle_x_32_y_293_r_145_d_0.40_sp_0.80_w_200_h_200.7.png",5,50,sampling_fraction=0.005) 
+#run("NoisyCircle_x_32_y_293_r_145_d_0.40_sp_0.80_w_200_h_200.7.png",5,50,sampling_fraction=0.005)
+
+#run("Bridge5_pier_test.png",5,50,sampling_fraction=0.01)
+run("plot_2.png",5,50,sampling_fraction=0.01)
 
 #
 #

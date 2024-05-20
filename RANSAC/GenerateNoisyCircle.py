@@ -9,9 +9,9 @@
 import numpy as np
 import os
 import skimage
-from RANSAC.Common import Util
-from RANSAC.Common import CircleModel
-from RANSAC.Common import Point
+from Common import Util
+from Common import CircleModel
+from Common import Point
 import random
 import math
 #
@@ -29,7 +29,7 @@ img.fill(img_white_color)
 #
 #Generate Salt-Pepper noise
 #
-image_noisy=skimage.util.random_noise(img,mode="s&p",seed=None, clip=True,salt_vs_pepper=salt_pepper_ratio)
+image_noisy=skimage.util.random_noise(img,mode="s&p", clip=True,salt_vs_pepper=salt_pepper_ratio)
 #
 #Generate circle
 #

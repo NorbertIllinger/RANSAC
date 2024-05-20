@@ -1,14 +1,15 @@
 #
 #Read the image containing the noisy 
 #
+import numpy as np
 import skimage
 import os
 import datetime
 
-from RANSAC.Algorithm import RansacLineHelper
-from RANSAC.Common import LineModel
-from RANSAC.Common import Point
-from RANSAC.Common import Util
+from Algorithm import RansacLineHelper
+from Common import LineModel
+from Common import Point
+from Common import Util
 
 
 def run_ransac(filename):
@@ -28,7 +29,7 @@ def run_ransac(filename):
     #
     #begin RANSAC
     #
-    ransac_maxiterations=12000
+    ransac_maxiterations=6000
     #12000
     #6000 
     #12000 worked well
@@ -64,9 +65,10 @@ def run_ransac(filename):
     filename_result=("%s-%s.result.png") % (filename_noextension,now.strftime("%Y-%m-%d-%H-%M-%S"))
     file_result=os.path.join(folder_script,"./out/",filename_result)
     #Load input image into array
-    np_image_result=skimage.io.imread(file_noisy_line,as_gray=True)
+    np_image_result=skimage.io.imread(file_noisy_line, as_gray=True)
     new_points=LineModel.generate_points_from_line(model,0,0,np_image_result.shape[1]-1,np_image_result.shape[0]-1)
     np_superimposed=Util.superimpose_points_on_image(np_image_result,new_points,100,255,100)
+    np_superimposed=np.clip(np_superimposed,0,255).astype(np.uint8)
     #Save new image
     skimage.io.imsave(file_result,np_superimposed)
 
@@ -75,9 +77,9 @@ pass
 
 
 
-run_ransac("NoisyLine-Gaussian-sp-0.80.103.png")
-run_ransac("NoisyLine-Gaussian-sp-0.80.111.png")
+#run_ransac("NoisyLine-Gaussian-sp-0.80.103.png")
+#run_ransac("NoisyLine-Gaussian-sp-0.80.111.png")
 run_ransac("NoisyLine-Gaussian-sp-0.80.118.png")
-run_ransac("NoisyLine-Gaussian-sp-0.80.119.png")
-run_ransac("NoisyLine-Gaussian-sp-0.80.121.png")
-run_ransac("NoisyLine-Gaussian-sp-0.80.104.png")
+#run_ransac("NoisyLine-Gaussian-sp-0.80.119.png")
+#run_ransac("NoisyLine-Gaussian-sp-0.80.121.png")
+#run_ransac("NoisyLine-Gaussian-sp-0.80.104.png")

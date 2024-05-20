@@ -9,7 +9,7 @@
 import numpy as np
 import os
 import skimage
-from RANSAC.Common import Util
+from Common import Util
 import random
 #
 #Create blank image
@@ -23,7 +23,7 @@ img.fill(img_back_color)
 #
 #Generate Salt-Pepper noise
 #
-image_noisy=skimage.util.random_noise(img,mode="s&p",seed=None, clip=True,salt_vs_pepper=0.2)
+image_noisy=skimage.util.random_noise(img,mode="s&p", clip=True,salt_vs_pepper=0.2)
 #
 #Generate a straight line
 #

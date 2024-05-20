@@ -55,7 +55,7 @@ class CircleModel(object):
         circumfrence=2*math.pi * model.R
         num=circumfrence/distance
 
-        angles=np.linspace(angleStart,angleEnd,num)
+        angles=np.linspace(angleStart,angleEnd,int(num))
         radius=model.R
         lst_points:List[pt.Point]=list()
         for idx in range(0,len(angles)):
